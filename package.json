@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "dependencies": {
-    "hono": "^4",
-    "wrangler": "^4"
+    "hono": "^4"
   },
   "scripts": {
     "start": "wrangler dev",
