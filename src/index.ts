@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
+import { showRoutes } from 'hono/debug';
 
 const app = new Hono();
 
@@ -22,5 +23,8 @@ app.post('/webhook', async (c) => {
 app.get('/test', async (c) => {
   return c.text('testing');
 });
+
+// Debugging: Show all registered routes
+showRoutes(app);
 
 export default app;
