@@ -1,6 +1,10 @@
 import { Hono } from 'hono';
+import { cors } from 'hono/cors';
 
 const app = new Hono();
+
+// Enable CORS middleware
+app.use('*', cors());
 
 // Define a POST endpoint for the webhook
 app.post('/webhook', async (c) => {
