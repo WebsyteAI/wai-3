@@ -6,8 +6,8 @@ interface Env {}
 const app = new Hono<{ Bindings: Env }>();
 
 app.get('/geolocation', (c) => {
-  // Return the entire request object as JSON for debugging purposes
-  return c.json(c.req);
+  // Return the raw request object for debugging purposes
+  return c.json(c.req.raw);
 });
 
 export default app;
