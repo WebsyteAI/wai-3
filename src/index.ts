@@ -9,26 +9,23 @@ app.get('/geolocation', (c) => {
   const geo = c.req.cf;
 
   if (!geo) {
-    return c.json(
-      {
-        error: 'Geolocation data is not available.',
-      },
-      500
-    );
+    return c.html('<p>Geolocation data is not available.</p>', 500);
   }
 
-  const geolocationData = {
-    ip: c.req.headers.get('cf-connecting-ip') || 'Unknown',
-    country: geo.country || 'Unknown',
-    city: geo.city || 'Unknown',
-    latitude: geo.latitude || 'Unknown',
-    longitude: geo.longitude || 'Unknown',
-    timezone: geo.timezone || 'Unknown',
-    region: geo.region || 'Unknown',
-    postalCode: geo.postalCode || 'Unknown',
-  };
+  let html_content = '<h1>Geolocation Data</h1>';
+  html_content += '<p>Colo: ' + geo.colo + '</p>';
+  html_content += '<p>Country: ' + geo.country + '</p>';
+  html_content += '<p>City: ' + geo.city + '</p>';
+  html_content += '<p>Continent: ' + geo.continent + '</p>';
+  html_content += '<p>Latitude: ' + geo.latitude + '</p>';
+  html_content += '<p>Longitude: ' + geo.longitude + '</p>';
+  html_content += '<p>PostalCode: ' + geo.postalCode + '</p>';
+  html_content += '<p>MetroCode: ' + geo.metroCode + '</p>';
+  html_content += '<p>Region: ' + geo.region + '</p>';
+  html_content += '<p>RegionCode: ' + geo.regionCode + '</p>';
+  html_content += '<p>Timezone: ' + geo.timezone + '</p>';
 
-  return c.json(geolocationData);
+  return c.html(html_content);
 });
 
 export default app;
