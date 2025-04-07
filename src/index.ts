@@ -14,16 +14,9 @@ app.post('/webhook', async (c) => {
   });
 });
 
-// Define a GET endpoint that returns test data
+// Define a GET endpoint that returns "testing"
 app.get('/test', async (c) => {
-  return c.json({
-    message: 'Test data retrieved successfully!',
-    testData: {
-      name: 'Example',
-      value: 42,
-      active: true,
-    },
-  });
+  return c.text('testing');
 });
 
 export default app;
