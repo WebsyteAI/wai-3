@@ -18,8 +18,8 @@ app.get('/webhook', async (c) => {
   });
 });
 
-// Define a GET endpoint that returns "testing"
-app.get('/test', async (c) => {
+// Define a POST endpoint that returns "testing"
+app.post('/test', async (c) => {
   return c.text('testing');
 });
 
