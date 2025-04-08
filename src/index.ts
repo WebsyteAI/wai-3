@@ -1,41 +1,58 @@
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
+export default {
+  async fetch(request: Request): Promise<Response> {
+    const url = new URL(request.url);
 
-const app = new Hono();
+    // Enable CORS
+    const corsHeaders = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    };
 
-// Enable CORS middleware
-app.use('*', cors());
+    if (request.method === 'OPTIONS') {
+      return new Response(null, { status: 204, headers: corsHeaders });
+    }
 
-// Define a GET endpoint for the webhook
-app.get('/webhook', async (c) => {
-  return c.json({
-    message: 'Webhook received!',
-    exampleData: {
-      id: 123,
-      status: 'success',
-      timestamp: new Date().toISOString(),
-    },
-  });
-});
+    // Route handling
+    if (url.pathname === '/webhook' && request.method === 'GET') {
+      return new Response(
+        JSON.stringify({
+          message: 'Webhook received!',
+          exampleData: {
+            id: 123,
+            status: 'success',
+            timestamp: new Date().toISOString(),
+          },
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+      );
+    }
 
-// Define a PUT endpoint that returns "testing"
-app.put('/test', async (c) => {
-  return c.text('testing');
-});
+    if (url.pathname === '/test' && request.method === 'PUT') {
+      return new Response('testing', { status: 200, headers: corsHeaders });
+    }
 
-// Add additional test endpoints
-app.get('/test/one', async (c) => {
-  return c.json({
-    message: 'This is test endpoint one.',
-    data: { value: 1 },
-  });
-});
+    if (url.pathname === '/test/one' && request.method === 'GET') {
+      return new Response(
+        JSON.stringify({
+          message: 'This is test endpoint one.',
+          data: { value: 1 },
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+      );
+    }
 
-app.get('/test/two', async (c) => {
-  return c.json({
-    message: 'This is test endpoint two.',
-    data: { value: 2 },
-  });
-});
+    if (url.pathname === '/test/two' && request.method === 'GET') {
+      return new Response(
+        JSON.stringify({
+          message: 'This is test endpoint two.',
+          data: { value: 2 },
+        }),
+        { status: 200, headers: { 'Content-Type': 'application/json', ...corsHeaders } }
+      );
+    }
 
-export default app;
+    // Default 404 response
+    return new Response('Not Found', { status: 404, headers: corsHeaders });
+  },
+};
