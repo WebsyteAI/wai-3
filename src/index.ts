@@ -18,8 +18,8 @@ app.get('/webhook', async (c) => {
   });
 });
 
-// Define a PUT endpoint that returns "testing"
-app.put('/test', async (c) => {
+// Define a POST endpoint that returns "testing"
+app.post('/test', async (c) => {
   return c.text('testing');
 });
 
