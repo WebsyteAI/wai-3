@@ -7,8 +7,8 @@ const app = new Hono();
 // Enable CORS middleware
 app.use('*', cors());
 
-// Define a POST endpoint for the webhook
-app.post('/webhook', async (c) => {
+// Replace POST /webhook with GET /webhook
+app.get('/webhook', async (c) => {
   return c.json({
     message: 'Webhook received!',
     exampleData: {
