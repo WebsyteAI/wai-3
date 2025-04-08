@@ -38,4 +38,14 @@ app.get('/test/two', async (c) => {
   });
 });
 
+// Catch-all endpoint to test if requests are being received
+app.all('*', async (c) => {
+  return c.json({
+    message: 'Catch-all endpoint hit!',
+    method: c.req.method,
+    path: c.req.path,
+    timestamp: new Date().toISOString(),
+  });
+});
+
 export default app;
